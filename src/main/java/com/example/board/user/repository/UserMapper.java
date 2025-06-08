@@ -16,6 +16,12 @@ public interface UserMapper {
     // 전체 유저 조회
     List<User> findAllUsers();
 
+    // 유저 수정
+    void updateUser(User user);
+
+    // 유저 이름 수정
+    void updateUserName(User userName);
+
     // 유저 삭제
     void deleteUserById(Long id);
 }

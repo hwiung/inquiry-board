@@ -24,6 +24,22 @@
         FROM user
     </select>
 
+    <!-- 유저 수정 -->
+    <update id="updateUser" parameterType="com.example.board.user.domain.User">
+        UPDATE user
+        SET username = #{username},
+            email = #{email},
+            password = #{password}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 유저 이름 수정 -->
+    <update id="updateUserName" parameterType="com.example.board.user.domain.User">
+        update user
+        set username = #{username}
+        where id = #{id}
+    </update>
+
     <!-- 유저 삭제 -->
     <delete id="deleteUserById" parameterType="long">
         DELETE FROM user

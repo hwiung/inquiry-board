@@ -16,4 +16,19 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+    public void updateUser(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public void updateUserName(String username) {
+        this.username = username;
+    }
+
+    public void updateUserId(Long testId) {
+        this.id = testId;
+    }
+
 }

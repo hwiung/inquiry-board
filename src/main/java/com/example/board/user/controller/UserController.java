@@ -1,6 +1,8 @@
 package com.example.board.user.controller;
 
 import com.example.board.user.domain.User;
+import com.example.board.user.dto.UserNameUpdateRequest;
+import com.example.board.user.dto.UserUpdateRequest;
 import com.example.board.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +35,18 @@ public class UserController {
     @GetMapping
     public List<User> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    // 회원 수정
+    @PatchMapping("/{id}")
+    public void updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest userUpdateRequest) {
+        userService.updateUser(userUpdateRequest, id);
+    }
+
+    // 회원 이름 변경
+    @PatchMapping("/user-name/{id}")
+    public void updateUserName(@PathVariable Long id, @RequestBody UserNameUpdateRequest userNameUpdateRequest) {
+        userService.updateUserName(userNameUpdateRequest, id);
     }
 
     // 회원 탈퇴
