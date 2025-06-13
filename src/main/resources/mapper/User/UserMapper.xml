@@ -28,7 +28,7 @@
     <update id="updateUser" parameterType="com.example.board.user.domain.User">
         UPDATE user
         SET username = #{username},
-            email = #{email},
+            email    = #{email},
             password = #{password}
         WHERE id = #{id}
     </update>
@@ -40,9 +40,17 @@
         where id = #{id}
     </update>
 
+    <!-- 패스워드 수정 -->
+    <update id="updateUserPassword">
+        update user
+        set password = #{newPassword}
+        where id = #{id}
+    </update>
+
     <!-- 유저 삭제 -->
     <delete id="deleteUserById" parameterType="long">
-        DELETE FROM user
+        DELETE
+        FROM user
         WHERE id = #{id}
     </delete>
 

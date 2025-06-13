@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Setter
-public class UserNameUpdateRequest {
+public class UserNameUpdateRequestDto {
 
     private String username;
 }

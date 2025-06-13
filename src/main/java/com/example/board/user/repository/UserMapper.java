@@ -2,6 +2,7 @@ package com.example.board.user.repository;
 
 import com.example.board.user.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ public interface UserMapper {
 
     // 유저 이름 수정
     void updateUserName(User userName);
+
+    // 패스워드 수정
+    void updateUserPassword(@Param("id") Long id, @Param("newPassword") String newPassword);
 
     // 유저 삭제
     void deleteUserById(Long id);

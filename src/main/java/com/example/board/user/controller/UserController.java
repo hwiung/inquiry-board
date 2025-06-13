@@ -1,8 +1,6 @@
 package com.example.board.user.controller;
 
-import com.example.board.user.domain.User;
-import com.example.board.user.dto.UserNameUpdateRequest;
-import com.example.board.user.dto.UserUpdateRequest;
+import com.example.board.user.dto.*;
 import com.example.board.user.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,32 +19,38 @@ public class UserController {
 
     // 회원가입
     @PostMapping
-    public void signup(@RequestBody User user) {
-        userService.signup(user);
+    public void signup(@RequestBody UserSignupRequestDto requestDto) {
+        userService.signup(requestDto);
     }
 
     // 단일 유저 조회
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
+    public UserResponseDto getUser(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     // 전체 유저 조회
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserResponseDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
     // 회원 수정
     @PatchMapping("/{id}")
-    public void updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest userUpdateRequest) {
-        userService.updateUser(userUpdateRequest, id);
+    public void updateUser(@PathVariable Long id, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+        userService.updateUser(userUpdateRequestDto, id);
     }
 
     // 회원 이름 변경
-    @PatchMapping("/user-name/{id}")
-    public void updateUserName(@PathVariable Long id, @RequestBody UserNameUpdateRequest userNameUpdateRequest) {
-        userService.updateUserName(userNameUpdateRequest, id);
+    @PatchMapping("/{id}/username")
+    public void updateUserName(@PathVariable Long id, @RequestBody UserNameUpdateRequestDto userNameUpdateRequestDto) {
+        userService.updateUserName(userNameUpdateRequestDto, id);
+    }
+
+    // 패스워드 변경
+    @PatchMapping("/{id}/password")
+    public void updatePassword(@PathVariable Long id, @RequestBody UserPasswordUpdateRequestDto userPasswordUpdateRequestDto) {
+        userService.updateUserPassword(id, userPasswordUpdateRequestDto.getNewPassword());
     }
 
     // 회원 탈퇴
