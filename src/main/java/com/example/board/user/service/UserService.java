@@ -1,10 +1,7 @@
 package com.example.board.user.service;
 
 import com.example.board.user.domain.User;
-import com.example.board.user.dto.UserNameUpdateRequestDto;
-import com.example.board.user.dto.UserResponseDto;
-import com.example.board.user.dto.UserSignupRequestDto;
-import com.example.board.user.dto.UserUpdateRequestDto;
+import com.example.board.user.dto.*;
 import com.example.board.user.repository.UserMapper;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +39,18 @@ public class UserService {
             result.add(UserResponseDto.from(user));
         }
         return result;
+    }
+
+    // 페이징 조회
+    public UserPageDto getUserByPage(int page, int size) {
+        // 1) offset 계산
+        int offset = page * size;
+        // 2) 페이징된 사용자 목록 조회
+        List<User> users = userMapper.findUserByPage(offset, size);
+        // 3) 전체 사용자 수 조회(페이지 계산용)
+        long totalCount = userMapper.countUsers();
+        // 4) dto 생성 및 반환
+        return new UserPageDto(users, page, size, totalCount);
     }
 
     // 회원 수정

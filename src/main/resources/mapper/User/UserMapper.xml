@@ -24,6 +24,19 @@
         FROM user
     </select>
 
+    <!-- 페이징 -->
+    <select id="findUserByPage" resultType="com.example.board.user.domain.User">
+        select id, username, email, created_at
+        from user
+        order by created_at desc
+        limit #{limit} offset #{offset}
+    </select>
+
+    <!-- 총 레코드 수 조회 -->
+    <select id="countUsers" resultType="long">
+        select count(*) from user
+    </select>
+
     <!-- 유저 수정 -->
     <update id="updateUser" parameterType="com.example.board.user.domain.User">
         UPDATE user

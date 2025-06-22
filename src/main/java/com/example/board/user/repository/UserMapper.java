@@ -17,6 +17,15 @@ public interface UserMapper {
     // 전체 유저 조회
     List<User> findAllUsers();
 
+    // 페이징 조회
+    List<User> findUserByPage(
+            @Param("offset") int offset,
+            @Param("limit") int limit
+    );
+
+    // 총 레코드 조회
+    long countUsers();
+
     // 유저 수정
     void updateUser(User user);
 
