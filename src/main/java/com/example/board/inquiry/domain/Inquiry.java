@@ -10,6 +10,7 @@ public class Inquiry {
     public Inquiry() {
     }
 
+    //생성자 이름은 같고 매개변수 구성은 다르게 -> 오버로딩!(메소드도 오버로딩 가능함)
     public Inquiry(Long id, String username, String title, String content) {
         this.id = id;
         this.username = username;

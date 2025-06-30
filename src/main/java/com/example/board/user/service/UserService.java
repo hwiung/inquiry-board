@@ -72,13 +72,11 @@ public class UserService {
 
     // 패스워드 수정
     public void updateUserPassword(Long id, String newPassword) {
-
         userMapper.updateUserPassword(id, newPassword);
     }
 
     // 회원 탈퇴
     public void deleteUser(Long id) {
-
         userMapper.deleteUserById(id);
     }
 }

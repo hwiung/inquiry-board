@@ -20,21 +20,18 @@ public class UserController {
     // 회원가입
     @PostMapping
     public void signup(@RequestBody UserSignupRequestDto requestDto) {
-
         userService.signup(requestDto);
     }
 
     // 단일 유저 조회
     @GetMapping("/{id}")
     public UserResponseDto getUser(@PathVariable Long id) {
-
         return userService.getUserById(id);
     }
 
     // 전체 유저 조회 -> 연습용이라 일단, 파라미터 없을 땐 전체 조회
     @GetMapping(params = "!page")
     public List<UserResponseDto> getAllUsers() {
-
         return userService.getAllUsers();
     }
 
@@ -65,7 +62,6 @@ public class UserController {
     // 회원 탈퇴
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id) {
-
         userService.deleteUser(id);
     }
 

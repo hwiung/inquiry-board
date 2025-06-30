@@ -9,12 +9,9 @@ public class User {
     private String email;
     private String password;
 
-    // 기본 생성자
     public User() {
-
     }
 
-    // 전체 필드 생성자
     public User(Long id, String username, String email, String password) {
         this.id = id;
         this.username = username;
@@ -29,7 +26,6 @@ public class User {
     }
 
     public void updateUserName(String username) {
-
         this.username = username;
     }
 

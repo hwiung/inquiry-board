@@ -11,4 +11,17 @@
         VALUES (#{title}, #{content})
     </insert>
 
+    <!-- 문의 사항 단건 조회 -->
+    <select id="findInquiryById" parameterType="com.example.board.inquiry.domain.Inquiry">
+        SELECT id, username, title, content
+        FROM inquiry
+        WHERE id = #{id}
+    </select>
+
+    <!-- 문의 사항 전체 조회 -->
+    <select id="findAllInquiries" parameterType="com.example.board.inquiry.domain.Inquiry">
+        SELECT id, username, title, content
+        FROM inquiry
+    </select>
+
 </mapper>
