@@ -1,6 +1,6 @@
 package com.example.board.inquiry.controller;
 
-import com.example.board.inquiry.dto.InquiryCreateDto;
+import com.example.board.inquiry.dto.InquiryCreateRequestDto;
 import com.example.board.inquiry.dto.InquiryResponseDto;
 import com.example.board.inquiry.service.InquiryService;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +19,8 @@ public class InquiryController {
 
     // 문의 사항 작성
     @PostMapping
-    public void createInquiry(@RequestBody InquiryCreateDto inquiryCreateDto) {
-        inquiryService.createInquiry(inquiryCreateDto);
+    public void createInquiry(@RequestBody InquiryCreateRequestDto inquiryCreateRequestDto) {
+        inquiryService.createInquiry(inquiryCreateRequestDto);
     }
 
     // 문의 사항 단건 조회

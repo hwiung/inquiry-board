@@ -17,6 +17,8 @@ public class UserController {
         this.userService = userService;
     }
 
+    //todo 로그인/로그아웃 기능
+
     // 회원가입
     @PostMapping
     public void signup(@RequestBody UserSignupRequestDto requestDto) {

@@ -1,7 +1,7 @@
 package com.example.board.inquiry.service;
 
 import com.example.board.inquiry.domain.Inquiry;
-import com.example.board.inquiry.dto.InquiryCreateDto;
+import com.example.board.inquiry.dto.InquiryCreateRequestDto;
 import com.example.board.inquiry.dto.InquiryResponseDto;
 import com.example.board.inquiry.repository.InquiryMapper;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,8 @@ public class InquiryService {
     }
 
     // 문의 사항 작성
-    public void createInquiry(InquiryCreateDto dto) {
-        Inquiry inquiry = new Inquiry(dto.getTitle(), dto.getContent());
+    public void createInquiry(InquiryCreateRequestDto dto) {
+        Inquiry inquiry = new Inquiry(dto.getUserId(), dto.getEmail(), dto.getTitle(), dto.getContent());
         inquiryMapper.insertInquiry(inquiry);
     }
 

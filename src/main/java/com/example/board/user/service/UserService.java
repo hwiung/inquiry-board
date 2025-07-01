@@ -20,7 +20,7 @@ public class UserService {
 
     // 회원가입
     public void signup(UserSignupRequestDto dto) {
-        User user = new User(null, dto.getUsername(), dto.getEmail(), dto.getPassword());
+        User user = new User(dto.getUsername(), dto.getEmail(), dto.getPassword());
         userMapper.insertUser(user);
     }
 

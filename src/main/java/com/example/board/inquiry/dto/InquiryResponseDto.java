@@ -6,6 +6,7 @@ public class InquiryResponseDto {
 
     private Long id;
     private String username;
+    private String email;
     private String title;
     private String content;
 
@@ -13,10 +14,8 @@ public class InquiryResponseDto {
 
     }
 
-    public InquiryResponseDto(Long id, String username, String title, String content) {
-
+    public InquiryResponseDto(Long id, String title, String content) {
         this.id = id;
-        this.username = username;
         this.title = title;
         this.content = content;
     }
@@ -27,6 +26,10 @@ public class InquiryResponseDto {
 
     public String getUsername() {
         return username;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getTitle() {
@@ -40,7 +43,6 @@ public class InquiryResponseDto {
     public static InquiryResponseDto from(Inquiry inquiry) {
         return new InquiryResponseDto(
                 inquiry.getId(),
-                inquiry.getUsername(),
                 inquiry.getTitle(),
                 inquiry.getContent()
         );
