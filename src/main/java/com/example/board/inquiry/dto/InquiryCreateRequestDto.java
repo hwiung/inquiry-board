@@ -9,18 +9,22 @@ public class InquiryCreateRequestDto {
     private String content;
 
     public Long getUserId() {
+
         return userId;
     }
 
     public String getEmail() {
+
         return email;
     }
 
     public String getTitle() {
+
         return title;
     }
 
     public String getContent() {
+
         return content;
     }
 }

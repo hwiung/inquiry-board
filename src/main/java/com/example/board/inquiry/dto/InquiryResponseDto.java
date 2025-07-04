@@ -1,7 +1,5 @@
 package com.example.board.inquiry.dto;
 
-import com.example.board.inquiry.domain.Inquiry;
-
 public class InquiryResponseDto {
 
     private Long id;
@@ -14,8 +12,9 @@ public class InquiryResponseDto {
 
     }
 
-    public InquiryResponseDto(Long id, String title, String content) {
+    public InquiryResponseDto(Long id, String username, String title, String content) {
         this.id = id;
+        this.username = username;
         this.title = title;
         this.content = content;
     }
@@ -38,14 +37,6 @@ public class InquiryResponseDto {
 
     public String getContent() {
         return content;
-    }
-
-    public static InquiryResponseDto from(Inquiry inquiry) {
-        return new InquiryResponseDto(
-                inquiry.getId(),
-                inquiry.getTitle(),
-                inquiry.getContent()
-        );
     }
 
 }

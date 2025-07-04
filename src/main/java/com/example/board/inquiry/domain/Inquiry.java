@@ -4,6 +4,7 @@ public class Inquiry {
 
     private Long id;
     private Long userId;    //FK(유저의 id 참조)
+    private String username;
     private String email;
     private String title;
     private String content;
@@ -11,7 +12,6 @@ public class Inquiry {
     public Inquiry() {
     }
 
-    //생성자 이름은 같고 매개변수 구성(타입, 순서, 개수)은 다르게 -> 오버로딩!(메소드도 오버로딩 가능함)
     public Inquiry(String email, String title, String content) {
         this.email = email;
         this.title = title;
@@ -25,12 +25,23 @@ public class Inquiry {
         this.content = content;
     }
 
+    public Inquiry(Long id, Long userId, String title, String content) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.content = content;
+    }
+
     public Long getId() {
         return id;
     }
 
     public Long getUserId() {
         return userId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getEmail() {

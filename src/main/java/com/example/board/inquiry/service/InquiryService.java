@@ -28,7 +28,12 @@ public class InquiryService {
     // 문의 사항 단건 조회
     public InquiryResponseDto getInquiryById(Long id) {
         Inquiry inquiry = inquiryMapper.findInquiryById(id);
-        return InquiryResponseDto.from(inquiry);
+        return new InquiryResponseDto(
+                inquiry.getId(),
+                inquiry.getUsername(),
+                inquiry.getTitle(),
+                inquiry.getContent()
+        );
     }
 
     // 문의 사항 전체 조회
@@ -40,7 +45,12 @@ public class InquiryService {
         //3. 문의 사항 하나씩 꺼내서
         for (Inquiry inquiry : inquiries) {
             //4. Inquiry -> InquiryResponseDto로 변환 후 result에 추가
-            result.add(InquiryResponseDto.from(inquiry));
+            result.add(new InquiryResponseDto(
+                    inquiry.getId(),
+                    inquiry.getUsername(),
+                    inquiry.getTitle(),
+                    inquiry.getContent()
+                    ));
         }
         //5. 모든 dto 리스트 반환
         return result;
