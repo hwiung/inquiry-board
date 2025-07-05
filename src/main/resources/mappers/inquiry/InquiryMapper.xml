@@ -26,4 +26,11 @@
         join user u on i.user_id = u.id
     </select>
 
+    <!-- 문의 사항 수정 -->
+    <update id="updateInquiry" parameterType="com.example.board.inquiry.domain.Inquiry">
+        update inquiry
+        set email = #{email}, title = #{title}, content = #{content}
+        where id = #{id}
+    </update>
+
 </mapper>

@@ -14,4 +14,6 @@ public interface InquiryMapper {
 
     List<Inquiry> findAllInquiries();
 
+    void updateInquiry(Inquiry inquiry);
+
 }

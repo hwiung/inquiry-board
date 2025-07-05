@@ -3,7 +3,9 @@ package com.example.board.inquiry.service;
 import com.example.board.inquiry.domain.Inquiry;
 import com.example.board.inquiry.dto.InquiryCreateRequestDto;
 import com.example.board.inquiry.dto.InquiryResponseDto;
+import com.example.board.inquiry.dto.InquiryUpdateRequestDto;
 import com.example.board.inquiry.repository.InquiryMapper;
+import com.example.board.user.repository.UserMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,10 +15,12 @@ import java.util.List;
 public class InquiryService {
 
     public final InquiryMapper inquiryMapper;
+    private final UserMapper userMapper;
 
-    public InquiryService(InquiryMapper inquiryMapper) {
+    public InquiryService(InquiryMapper inquiryMapper, UserMapper userMapper) {
 
         this.inquiryMapper = inquiryMapper;
+        this.userMapper = userMapper;
     }
 
     // 문의 사항 작성
@@ -50,11 +54,16 @@ public class InquiryService {
                     inquiry.getUsername(),
                     inquiry.getTitle(),
                     inquiry.getContent()
-                    ));
+            ));
         }
         //5. 모든 dto 리스트 반환
         return result;
     }
 
+    //문의 사항 수정
+    public void updateInquiry(Long id, InquiryUpdateRequestDto dto) {
+        Inquiry inquiry = new Inquiry(id, dto.getEmail(), dto.getTitle(), dto.getContent());
+        inquiryMapper.updateInquiry(inquiry);
+    }
 
 }
