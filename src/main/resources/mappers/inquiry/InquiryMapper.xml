@@ -33,4 +33,10 @@
         where id = #{id}
     </update>
 
+    <!-- 문의 사항 삭제 -->
+    <delete id="deleteInquiry" parameterType="long">
+        delete from inquiry
+        where id = #{id}
+    </delete>
+
 </mapper>

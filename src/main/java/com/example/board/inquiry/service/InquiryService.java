@@ -15,7 +15,7 @@ import java.util.List;
 public class InquiryService {
 
     public final InquiryMapper inquiryMapper;
-    private final UserMapper userMapper;
+    public final UserMapper userMapper;
 
     public InquiryService(InquiryMapper inquiryMapper, UserMapper userMapper) {
 
@@ -60,10 +60,15 @@ public class InquiryService {
         return result;
     }
 
-    //문의 사항 수정
+    // 문의 사항 수정
     public void updateInquiry(Long id, InquiryUpdateRequestDto dto) {
         Inquiry inquiry = new Inquiry(id, dto.getEmail(), dto.getTitle(), dto.getContent());
         inquiryMapper.updateInquiry(inquiry);
+    }
+
+    // 문의 사항 삭제
+    public void deleteInquiry(Long id) {
+        inquiryMapper.deleteInquiry(id);
     }
 
 }

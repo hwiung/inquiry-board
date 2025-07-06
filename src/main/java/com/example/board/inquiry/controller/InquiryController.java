@@ -44,4 +44,10 @@ public class InquiryController {
     public void updateInquiry(@PathVariable Long id, @RequestBody InquiryUpdateRequestDto inquiryUpdateRequestDto) {
         inquiryService.updateInquiry(id, inquiryUpdateRequestDto);
     }
+
+    // 문의 사항 삭제
+    @DeleteMapping("/{id}")
+    public void deleteInquiry(@PathVariable Long id) {
+        inquiryService.deleteInquiry(id);
+    }
 }

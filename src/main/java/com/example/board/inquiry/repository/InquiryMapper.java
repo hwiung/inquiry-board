@@ -16,4 +16,6 @@ public interface InquiryMapper {
 
     void updateInquiry(Inquiry inquiry);
 
+    void deleteInquiry(Long id);
+
 }
