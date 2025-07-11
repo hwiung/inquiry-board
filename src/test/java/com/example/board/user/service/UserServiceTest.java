@@ -4,6 +4,7 @@ import com.example.board.user.domain.User;
 import com.example.board.user.dto.UserPageDto;
 import com.example.board.user.dto.UserResponseDto;
 import com.example.board.user.dto.UserSignupRequestDto;
+import com.example.board.user.dto.UserUpdateRequestDto;
 import com.example.board.user.repository.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,6 +44,7 @@ public class UserServiceTest {
         assertEquals("hwiung@naver.com", savedUser.getEmail());
         assertEquals("nana", savedUser.getPassword());
     }
+
     @Test
     void getUserTest() {
         // given: 테스트에 쓸 가짜 유저 객체 생성(생성자에서 id까지)
@@ -57,11 +58,12 @@ public class UserServiceTest {
         assertEquals("hwiung", result.getUsername());
         assertEquals("hwiung@naver.com", result.getEmail());
     }
+
     @Test
     void getAllUsersTest() {
         // given
-        User user1 = new User ("hwiung", "hwiung1@naver.com", "nana123!@#");
-        User user2 = new User ("hwiung2", "hwiung2@naver.com", "nana123!@#");
+        User user1 = new User("hwiung", "hwiung1@naver.com", "nana123!@#");
+        User user2 = new User("hwiung2", "hwiung2@naver.com", "nana123!@#");
         List<User> userList = List.of(user1, user2);
         when(userMapper.findAllUsers()).thenReturn(userList);
 
@@ -100,6 +102,37 @@ public class UserServiceTest {
         assertEquals(2, pageDto.getContent().size());
         assertEquals("hwiung3", pageDto.getContent().get(0).getUsername());
         assertEquals("hwiung4", pageDto.getContent().get(1).getUsername());
+
+    }
+
+    @Test
+    void updateUser() {
+        // given
+        User user = new User(1L, "hwiung", "hwiung@naver.com", "aa123!@");
+        UserUpdateRequestDto dto = new UserUpdateRequestDto("hwiung2");
+        when(userMapper.findUserById(1L)).thenReturn(user);
+        doNothing().when(userMapper).updateUser(any(User.class));
+
+        // when
+        userService.updateUser(dto, 1L);
+
+        // then
+        verify(userMapper, times(1)).updateUser(any(User.class));   // 호출 검증
+        assertEquals("hwiung2", user.getUsername()); // 변경 검증
+    }
+
+    @Test
+    void  updateUserName() {
+
+    }
+
+    @Test
+    void updateUserPassword() {
+
+    }
+
+    @Test
+    void deleteUser() {
 
     }
 }
