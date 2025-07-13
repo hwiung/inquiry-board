@@ -72,9 +72,10 @@ public class UserService {
     }
 
     // 패스워드 수정
-    public void updateUserPassword(Long id, String newPassword) {
-
-        userMapper.updateUserPassword(id, newPassword);
+    public void updateUserPassword(UserPasswordUpdateRequestDto userPasswordUpdateRequestDto, Long id) {
+        User userPassword = userMapper.findUserById(id);
+        userPassword.updateUserPassword(userPasswordUpdateRequestDto.getNewPassword());
+        userMapper.updateUserPassword(id, userPassword.getNewPassword());
     }
 
     // 회원 탈퇴

@@ -61,7 +61,7 @@ public class UserController {
     // 패스워드 변경
     @PatchMapping("/{id}/password")
     public void updatePassword(@PathVariable Long id, @RequestBody UserPasswordUpdateRequestDto userPasswordUpdateRequestDto) {
-        userService.updateUserPassword(id, userPasswordUpdateRequestDto.getNewPassword());
+        userService.updateUserPassword(userPasswordUpdateRequestDto, id);
     }
 
     // 회원 탈퇴

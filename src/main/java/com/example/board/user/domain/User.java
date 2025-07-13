@@ -40,6 +40,7 @@ public class User {
         this.newPassword = newPassword;
     }
 
+
     public Long getId() {
         return id;
     }
@@ -59,5 +60,4 @@ public class User {
     public String getNewPassword() {
         return newPassword;
     }
-
 }
