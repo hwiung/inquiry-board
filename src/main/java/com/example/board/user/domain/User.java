@@ -8,6 +8,7 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String newPassword;
 
     public User() {
     }
@@ -35,6 +36,10 @@ public class User {
         this.username = username;
     }
 
+    public void updateUserPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
     public Long getId() {
         return id;
     }
@@ -49,6 +54,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
     }
 
 }

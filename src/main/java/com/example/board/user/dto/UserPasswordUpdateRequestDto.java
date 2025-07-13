@@ -6,4 +6,8 @@ import lombok.Getter;
 public class UserPasswordUpdateRequestDto {
 
     private String newPassword;
+
+    public UserPasswordUpdateRequestDto(String newPassword) {
+        this.newPassword = newPassword;
+    }
 }

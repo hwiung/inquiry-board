@@ -1,10 +1,7 @@
 package com.example.board.user.service;
 
 import com.example.board.user.domain.User;
-import com.example.board.user.dto.UserPageDto;
-import com.example.board.user.dto.UserResponseDto;
-import com.example.board.user.dto.UserSignupRequestDto;
-import com.example.board.user.dto.UserUpdateRequestDto;
+import com.example.board.user.dto.*;
 import com.example.board.user.repository.UserMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -109,7 +107,7 @@ public class UserServiceTest {
     void updateUser() {
         // given
         User user = new User(1L, "hwiung", "hwiung@naver.com", "aa123!@");
-        UserUpdateRequestDto dto = new UserUpdateRequestDto("hwiung2");
+        UserUpdateRequestDto dto = new UserUpdateRequestDto("hwiung2", "hwiung123@naver.com");
         when(userMapper.findUserById(1L)).thenReturn(user);
         doNothing().when(userMapper).updateUser(any(User.class));
 
@@ -118,11 +116,27 @@ public class UserServiceTest {
 
         // then
         verify(userMapper, times(1)).updateUser(any(User.class));   // 호출 검증
-        assertEquals("hwiung2", user.getUsername()); // 변경 검증
+
+        assertAll(  // 변경 검증
+                () -> assertEquals("hwiung2", user.getUsername()),
+                () -> assertEquals("hwiung123@naver.com", user.getEmail())
+        );
     }
 
     @Test
     void  updateUserName() {
+        // given
+        User user = new User(1L, "hwiung", "hwiung@naver.com","qwer123!@#" );
+        UserNameUpdateRequestDto dto = new UserNameUpdateRequestDto("hwiung3");
+        when(userMapper.findUserById(1L)).thenReturn(user);
+        doNothing().when(userMapper).updateUserName(any(User.class));
+
+        // when
+        userService.updateUserName(dto, 1L);
+
+        // then
+        verify(userMapper, times(1)).updateUserName(any(User.class));
+        assertEquals("hwiung3", user.getUsername());
 
     }
 
