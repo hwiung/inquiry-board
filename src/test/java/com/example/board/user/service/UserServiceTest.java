@@ -143,17 +143,18 @@ public class UserServiceTest {
     @Test
     void updateUserPassword() {
         // given
-        User user = new User(1L, "hwiung", "hwiung@naver.com", "qwer123!@#");
-        UserPasswordUpdateRequestDto dto = new UserPasswordUpdateRequestDto("asdf123!@#");
-        when(userMapper.findUserById(1L)).thenReturn(user);
+        Long userId = 1L;
+        String newPassword = "asdf123!@#";
+
+        UserPasswordUpdateRequestDto dto = new UserPasswordUpdateRequestDto(newPassword);
+
         doNothing().when(userMapper).updateUserPassword(any(Long.class), any(String.class));
 
         // when
-        userService.updateUserPassword(dto, user.getId());
+        userService.updateUserPassword(dto, userId);
 
         // then
         verify(userMapper, times(1)).updateUserPassword(any(Long.class), any(String.class));
-        assertEquals("asdf123!@#", user.getNewPassword());
 
     }
 

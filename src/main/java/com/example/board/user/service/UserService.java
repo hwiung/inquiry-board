@@ -73,9 +73,7 @@ public class UserService {
 
     // 패스워드 수정
     public void updateUserPassword(UserPasswordUpdateRequestDto userPasswordUpdateRequestDto, Long id) {
-        User userPassword = userMapper.findUserById(id);
-        userPassword.updateUserPassword(userPasswordUpdateRequestDto.getNewPassword());
-        userMapper.updateUserPassword(id, userPassword.getNewPassword());
+        userMapper.updateUserPassword(id, userPasswordUpdateRequestDto.getNewPassword());
     }
 
     // 회원 탈퇴
