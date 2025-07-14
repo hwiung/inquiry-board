@@ -124,9 +124,9 @@ public class UserServiceTest {
     }
 
     @Test
-    void  updateUserName() {
+    void updateUserName() {
         // given
-        User user = new User(1L, "hwiung", "hwiung@naver.com","qwer123!@#" );
+        User user = new User(1L, "hwiung", "hwiung@naver.com", "qwer123!@#");
         UserNameUpdateRequestDto dto = new UserNameUpdateRequestDto("hwiung3");
         when(userMapper.findUserById(1L)).thenReturn(user);
         doNothing().when(userMapper).updateUserName(any(User.class));
@@ -145,9 +145,7 @@ public class UserServiceTest {
         // given
         Long userId = 1L;
         String newPassword = "asdf123!@#";
-
         UserPasswordUpdateRequestDto dto = new UserPasswordUpdateRequestDto(newPassword);
-
         doNothing().when(userMapper).updateUserPassword(any(Long.class), any(String.class));
 
         // when
@@ -160,6 +158,14 @@ public class UserServiceTest {
 
     @Test
     void deleteUser() {
+        // given
+        Long userId = 1L;
+
+        // when
+        userService.deleteUser(userId);
+
+        // then
+        verify(userMapper, times(1)).deleteUserById(userId);
 
     }
 }
