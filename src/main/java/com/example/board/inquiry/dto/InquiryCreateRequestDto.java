@@ -8,6 +8,12 @@ public class InquiryCreateRequestDto {
     private String title;
     private String content;
 
+    public InquiryCreateRequestDto(String email, String title, String content) {
+        this.email = email;
+        this.title = title;
+        this.content = content;
+    }
+
     public Long getUserId() {
 
         return userId;

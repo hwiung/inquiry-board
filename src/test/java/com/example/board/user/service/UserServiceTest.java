@@ -104,7 +104,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void updateUser() {
+    void updateUserTest() {
         // given
         User user = new User(1L, "hwiung", "hwiung@naver.com", "aa123!@");
         UserUpdateRequestDto dto = new UserUpdateRequestDto("hwiung2", "hwiung123@naver.com");
@@ -124,7 +124,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void updateUserName() {
+    void updateUserNameTest() {
         // given
         User user = new User(1L, "hwiung", "hwiung@naver.com", "qwer123!@#");
         UserNameUpdateRequestDto dto = new UserNameUpdateRequestDto("hwiung3");
@@ -141,7 +141,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void updateUserPassword() {
+    void updateUserPasswordTest() {
         // given
         Long userId = 1L;
         String newPassword = "asdf123!@#";
@@ -157,7 +157,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void deleteUser() {
+    void deleteUserTest() {
         // given
         Long userId = 1L;
 
