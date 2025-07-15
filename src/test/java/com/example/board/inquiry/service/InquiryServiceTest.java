@@ -87,6 +87,11 @@ public class InquiryServiceTest {
 
     @Test
     void updateInquiryTest() {
+        // given
+
+        // when
+
+        // then
 
     }
 

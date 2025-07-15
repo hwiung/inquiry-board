@@ -53,6 +53,7 @@ public class UserServiceTest {
         UserResponseDto result = userService.getUserById(1L);
 
         // then: 결과 검증
+        assertEquals(1L, result.getId());
         assertEquals("hwiung", result.getUsername());
         assertEquals("hwiung@naver.com", result.getEmail());
     }
@@ -60,8 +61,8 @@ public class UserServiceTest {
     @Test
     void getAllUsersTest() {
         // given
-        User user1 = new User("hwiung", "hwiung1@naver.com", "nana123!@#");
-        User user2 = new User("hwiung2", "hwiung2@naver.com", "nana123!@#");
+        User user1 = new User(1L, "hwiung", "hwiung1@naver.com", "nana123!@#");
+        User user2 = new User(2L, "hwiung2", "hwiung2@naver.com", "nana123!@#");
         List<User> userList = List.of(user1, user2);
         when(userMapper.findAllUsers()).thenReturn(userList);
 
@@ -70,8 +71,15 @@ public class UserServiceTest {
 
         // then
         assertEquals(2, result.size());
+
+        assertEquals(1L, result.get(0).getId());
         assertEquals("hwiung", result.get(0).getUsername());
+        assertEquals("hwiung1@naver.com", result.get(0).getEmail());
+
+        assertEquals(2L, result.get(1).getId());
         assertEquals("hwiung2", result.get(1).getUsername());
+        assertEquals("hwiung2@naver.com", result.get(1).getEmail());
+
 
     }
 
@@ -98,8 +106,14 @@ public class UserServiceTest {
         assertEquals(size, pageDto.getSize());
         assertEquals(10L, pageDto.getTotalElements());
         assertEquals(2, pageDto.getContent().size());
+
+        assertEquals(3L, pageDto.getContent().get(0).getId());
         assertEquals("hwiung3", pageDto.getContent().get(0).getUsername());
+        assertEquals("hwiung3@naver.com", pageDto.getContent().get(0).getEmail());
+
+        assertEquals(4L, pageDto.getContent().get(1).getId());
         assertEquals("hwiung4", pageDto.getContent().get(1).getUsername());
+        assertEquals("hwiung4@naver.com", pageDto.getContent().get(1).getEmail());
 
     }
 
