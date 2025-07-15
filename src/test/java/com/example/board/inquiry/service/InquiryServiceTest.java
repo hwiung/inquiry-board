@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -26,7 +28,7 @@ public class InquiryServiceTest {
     @Test
     void createInquiryTest() {
         // given
-        InquiryCreateRequestDto dto = new InquiryCreateRequestDto("hwiung@naver.com","hahaha", "nice day");
+        InquiryCreateRequestDto dto = new InquiryCreateRequestDto("hwiung@naver.com", "hahaha", "nice day");
 
         // when
         inquiryService.createInquiry(dto);  // inquiryService 인스턴스로 호출해야 하며, InquiryService(대문자)로 static 호출하면 안됨!
@@ -61,6 +63,25 @@ public class InquiryServiceTest {
 
     @Test
     void getAllInquiriesTest() {
+        // given
+        Inquiry inquiry1 = new Inquiry(1L, "hwiung1", "hwiung1@naver.com", "have a nice day", "hahaha");
+        Inquiry inquiry2 = new Inquiry(2L, "hwiung2", "hwiung2@naver.com", "cross finger", "huh");
+        List<Inquiry> inquiryList = List.of(inquiry1, inquiry2);
+        when(inquiryMapper.findAllInquiries()).thenReturn(inquiryList);
+
+        // when
+        List<InquiryResponseDto> result = inquiryService.getAllInquiries();
+
+        // then
+        assertEquals(2, result.size());
+
+        assertEquals(1L, result.get(0).getId());
+        assertEquals("hwiung1", result.get(0).getUsername());
+        assertEquals("hwiung1@naver.com", result.get(0).getEmail());
+
+        assertEquals(2L, result.get(1).getId());
+        assertEquals("hwiung2", result.get(1).getUsername());
+        assertEquals("hwiung2@naver.com", result.get(1).getEmail());
 
     }
 
