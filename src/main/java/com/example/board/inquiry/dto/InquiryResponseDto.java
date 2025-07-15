@@ -12,9 +12,10 @@ public class InquiryResponseDto {
 
     }
 
-    public InquiryResponseDto(Long id, String username, String title, String content) {
+    public InquiryResponseDto(Long id, String username, String email, String title, String content) {
         this.id = id;
         this.username = username;
+        this.email = email;
         this.title = title;
         this.content = content;
     }

@@ -45,7 +45,7 @@ public class UserServiceTest {
 
     @Test
     void getUserTest() {
-        // given: 테스트에 쓸 가짜 유저 객체 생성(생성자에서 id까지)
+        // given: 테스트에 쓸 가짜 유저 객체 생성(생성자에 id 파라미터도)
         User user = new User(1L, "hwiung", "hwiung@naver.com", "nana123!@#");
         when(userMapper.findUserById(1L)).thenReturn(user);
 

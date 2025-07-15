@@ -35,6 +35,7 @@ public class InquiryService {
         return new InquiryResponseDto(
                 inquiry.getId(),
                 inquiry.getUsername(),
+                inquiry.getEmail(),
                 inquiry.getTitle(),
                 inquiry.getContent()
         );
@@ -52,6 +53,7 @@ public class InquiryService {
             result.add(new InquiryResponseDto(
                     inquiry.getId(),
                     inquiry.getUsername(),
+                    inquiry.getEmail(),
                     inquiry.getTitle(),
                     inquiry.getContent()
             ));

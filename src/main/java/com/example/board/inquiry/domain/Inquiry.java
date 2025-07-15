@@ -25,6 +25,14 @@ public class Inquiry {
         this.content = content;
     }
 
+    public Inquiry(Long id, String username, String email, String title, String content) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.title = title;
+        this.content = content;
+    }
+
     public Long getId() {
 
         return id;

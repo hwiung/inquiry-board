@@ -2,6 +2,7 @@ package com.example.board.inquiry.service;
 
 import com.example.board.inquiry.domain.Inquiry;
 import com.example.board.inquiry.dto.InquiryCreateRequestDto;
+import com.example.board.inquiry.dto.InquiryResponseDto;
 import com.example.board.inquiry.repository.InquiryMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,8 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class InquiryServiceTest {
@@ -43,6 +43,19 @@ public class InquiryServiceTest {
 
     @Test
     void getInquiryByIdTest() {
+        // given
+        Inquiry inquiry = new Inquiry(1L, "hwiung", "hwiung@naver.com", "look at me", "hahaha");
+        when(inquiryMapper.findInquiryById(1L)).thenReturn(inquiry);
+
+        // when
+        InquiryResponseDto result = inquiryService.getInquiryById(1L);
+
+        // then
+        assertEquals(1L, result.getId());
+        assertEquals("hwiung", result.getUsername());
+        assertEquals("hwiung@naver.com", result.getEmail());
+        assertEquals("look at me", result.getTitle());
+        assertEquals("hahaha", result.getContent());
 
     }
 
