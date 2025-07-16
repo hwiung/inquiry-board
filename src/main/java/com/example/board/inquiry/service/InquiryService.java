@@ -70,6 +70,7 @@ public class InquiryService {
 
     // 문의 사항 삭제
     public void deleteInquiry(Long id) {
+
         inquiryMapper.deleteInquiry(id);
     }
 

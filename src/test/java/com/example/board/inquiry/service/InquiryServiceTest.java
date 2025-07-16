@@ -3,6 +3,7 @@ package com.example.board.inquiry.service;
 import com.example.board.inquiry.domain.Inquiry;
 import com.example.board.inquiry.dto.InquiryCreateRequestDto;
 import com.example.board.inquiry.dto.InquiryResponseDto;
+import com.example.board.inquiry.dto.InquiryUpdateRequestDto;
 import com.example.board.inquiry.repository.InquiryMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -87,11 +88,23 @@ public class InquiryServiceTest {
 
     @Test
     void updateInquiryTest() {
-        // given
+        // given -> 여기서 inquiry 객체와 dto 객체는 서로 별개의 객체임.
+        Inquiry inquiry = new Inquiry(1L, "aiden@naver.com", "hi, i'm aiden", "nice to meet you");
+        InquiryUpdateRequestDto dto = new InquiryUpdateRequestDto(1L, "hwiung@naver.com", "hello, i'm hwiung", "good evening");
 
         // when
+        inquiryService.updateInquiry(1L, dto);  // 서비스 내부에서 새로운 객체를 만듦(dto 값을 받아서 새로운 inquiry 엔터티를 생성). 하지만 테스트에서 이걸 직접 참조할 방법이 없음! 그래서 ArgumentCaptor를 사용!
 
         // then
+        ArgumentCaptor<Inquiry> captor = ArgumentCaptor.forClass(Inquiry.class);    // mock이 updateInquiry를 호출할 때 넘긴 실제 inquiry를 캡처
+        verify(inquiryMapper).updateInquiry(captor.capture());
+        Inquiry updateInquiry = captor.getValue();  // 여기에 실제 전달된 객체가 들어옴
+
+        // 이제 이 updateInquiry의 각 필드를 assert로 검증할 수 있음
+        assertEquals(1L, updateInquiry.getId());
+        assertEquals("hwiung@naver.com", updateInquiry.getEmail());
+        assertEquals("hello, i'm hwiung", updateInquiry.getTitle());
+        assertEquals("good evening", updateInquiry.getContent());
 
     }
 

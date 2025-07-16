@@ -18,8 +18,8 @@ public class Inquiry {
         this.content = content;
     }
 
-    public Inquiry(Long userId, String email, String title, String content) {
-        this.userId = userId;
+    public Inquiry(Long id, String email, String title, String content) {
+        this.id = id;
         this.email = email;
         this.title = title;
         this.content = content;
@@ -49,6 +49,7 @@ public class Inquiry {
     }
 
     public String getEmail() {
+
         return email;
     }
 
