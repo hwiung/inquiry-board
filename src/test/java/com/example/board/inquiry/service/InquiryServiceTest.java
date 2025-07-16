@@ -110,6 +110,15 @@ public class InquiryServiceTest {
 
     @Test
     void deleteInquiryTest() {
+        // given
+        Long inquiryId = 1L;
+
+        // when
+        inquiryService.deleteInquiry(inquiryId);
+
+        // then
+        verify(inquiryMapper, times(1)).deleteInquiry(inquiryId);
+
 
     }
 
