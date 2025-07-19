@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static com.example.board.enums.UserRole.USER;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -28,7 +29,7 @@ public class UserServiceTest {
     @Test
     void signupTest() {
         // given
-        UserSignupRequestDto dto = new UserSignupRequestDto("hwiung", "hwiung@naver.com", "nana");
+        UserSignupRequestDto dto = new UserSignupRequestDto("hwiung", "hwiung@naver.com", "nana", USER);
 
         // when
         userService.signup(dto);

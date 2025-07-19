@@ -1,21 +1,22 @@
 package com.example.board.user.domain;
 
-import lombok.Getter;
+import com.example.board.enums.UserRole;
 
-@Getter
 public class User {
     private Long id;
     private String username;
     private String email;
     private String password;
+    private UserRole role;
 
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    public User(String username, String email, String password, UserRole role) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public void updateUser(String username, String email, String password) {
@@ -50,5 +51,7 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public UserRole getRole() { return role; }
 
 }
