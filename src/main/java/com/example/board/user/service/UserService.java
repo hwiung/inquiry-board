@@ -3,6 +3,7 @@ package com.example.board.user.service;
 import com.example.board.user.domain.User;
 import com.example.board.user.dto.*;
 import com.example.board.user.repository.UserMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,18 +13,35 @@ import java.util.List;
 public class UserService {
 
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
     // 생성자 주입
-    public UserService(UserMapper userMapper) {
+    public UserService(UserMapper userMapper, PasswordEncoder passwordEncoder) {
 
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // 회원가입
     public void signup(UserSignupRequestDto dto) {
-        User user = new User(dto.getUsername(), dto.getEmail(), dto.getPassword(), dto.getRole());
+        // 암호화
+        String encodedPassword = passwordEncoder.encode(dto.getPassword());
+        User user = new User(dto.getUsername(), dto.getEmail(), encodedPassword, dto.getRole());
         userMapper.insertUser(user);
     }
+
+    // 로그인
+    public User login(LoginRequestDto dto) {
+        User user = userMapper.findUserByEmail(dto.getEmail());
+        if (user == null) throw new IllegalArgumentException("이메일 없음");
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호 불일치");
+        }
+        return user;
+    }
+
+    // 로그아웃
+
 
     // 특정 유저 조회
     public UserResponseDto getUserById(Long id) {

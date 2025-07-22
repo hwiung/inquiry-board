@@ -1,7 +1,10 @@
 package com.example.board.user.controller;
 
+import com.example.board.user.domain.User;
 import com.example.board.user.dto.*;
 import com.example.board.user.service.UserService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +20,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    //todo 로그인/로그아웃 기능
+    // 로그인
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody LoginRequestDto dto, HttpSession session) {
+        User user = userService.login(dto);
+        session.setAttribute("userId", user.getId()); // 세션에 로그인 저장
+        return ResponseEntity.ok("로그인 성공");
+    }
+
+    // 로그아웃
+    @PostMapping("/logout")
+    public void logout(HttpSession session) {
+        session.invalidate();
+    }
 
     // 회원가입
     @PostMapping

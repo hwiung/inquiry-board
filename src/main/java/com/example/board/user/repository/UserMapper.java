@@ -11,6 +11,9 @@ public interface UserMapper {
     // 유저 생성
     void insertUser(User user);
 
+    // 유저 이메일 조회
+    User findUserByEmail(String email);
+
     // 특정 유저 조회
     User findUserById(Long id);
 
