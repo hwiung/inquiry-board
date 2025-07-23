@@ -1,8 +1,11 @@
 package com.example.board.user.service;
 
+import com.example.board.exception.NotFoundException;
+import com.example.board.exception.UnauthorizedException;
 import com.example.board.user.domain.User;
 import com.example.board.user.dto.*;
 import com.example.board.user.repository.UserMapper;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,9 +42,6 @@ public class UserService {
         }
         return user;
     }
-
-    // 로그아웃
-
 
     // 특정 유저 조회
     public UserResponseDto getUserById(Long id) {
@@ -95,8 +95,26 @@ public class UserService {
     }
 
     // 회원 탈퇴
-    public void deleteUser(Long id) {
+    public void deleteUser(Long id, String password, HttpSession session) {
 
+        // 1. 세션 인증(본인 확인)
+        Long loginId = (Long) session.getAttribute("userId");   // 우변 -> 강제 형변환
+        if (loginId == null || !loginId.equals(id)) {
+            throw new UnauthorizedException("본인만 탈퇴 가능");
+        }
+
+        // 2. DB에서 User 객체 조회
+        User user = userMapper.findUserById(id);
+        if (user == null) {
+            throw new NotFoundException("해당 회원 없음");
+        }
+
+        // 3. 비밀번호 일치 확인
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호 불일치");
+        }
+
+        // 4. 실제 회원 탈퇴 처리
         userMapper.deleteUserById(id);
     }
 }

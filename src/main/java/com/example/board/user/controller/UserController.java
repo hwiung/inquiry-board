@@ -1,5 +1,6 @@
 package com.example.board.user.controller;
 
+import com.example.board.dto.PasswordConfirmRequestDto;
 import com.example.board.user.domain.User;
 import com.example.board.user.dto.*;
 import com.example.board.user.service.UserService;
@@ -81,8 +82,8 @@ public class UserController {
 
     // 회원 탈퇴
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public void deleteUser(@PathVariable Long id, @RequestBody PasswordConfirmRequestDto dto, HttpSession session) {
+        userService.deleteUser(id, dto.getPassword(), session);
     }
 
 }

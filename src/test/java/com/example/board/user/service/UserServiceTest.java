@@ -3,12 +3,15 @@ package com.example.board.user.service;
 import com.example.board.user.domain.User;
 import com.example.board.user.dto.*;
 import com.example.board.user.repository.UserMapper;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -21,16 +24,19 @@ import static org.mockito.Mockito.*;
 
 public class UserServiceTest {
     @Mock
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
     @InjectMocks
-    UserService userService;
+    private UserService userService;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void signupTest() {
         // given
         UserSignupRequestDto dto = new UserSignupRequestDto("hwiung", "hwiung@naver.com", "nana", USER);
-
+        when(passwordEncoder.encode("nanan")).thenReturn("nana");
         // when
         userService.signup(dto);
 
@@ -175,9 +181,17 @@ public class UserServiceTest {
     void deleteUserTest() {
         // given
         Long userId = 1L;
+        String password = "qwer!@#";
+        HttpSession session = new MockHttpSession();
+        session.setAttribute("userId", userId);
+
+        User mockUser = new User(userId, "hwiung", "hwiung@naver.com", password);
+        //userMapper가 호출되면 mockUser를 반환하도록 설정
+        when(userMapper.findUserById(userId)).thenReturn(mockUser);
+        when(passwordEncoder.matches(password, mockUser.getPassword())).thenReturn(true);
 
         // when
-        userService.deleteUser(userId);
+        userService.deleteUser(userId, password, session);
 
         // then
         verify(userMapper, times(1)).deleteUserById(userId);
