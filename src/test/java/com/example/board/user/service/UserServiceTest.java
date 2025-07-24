@@ -36,7 +36,7 @@ public class UserServiceTest {
     void signupTest() {
         // given
         UserSignupRequestDto dto = new UserSignupRequestDto("hwiung", "hwiung@naver.com", "nana", USER);
-        when(passwordEncoder.encode("nanan")).thenReturn("nana");
+        when(passwordEncoder.encode("nana")).thenReturn("nana");
         // when
         userService.signup(dto);
 
