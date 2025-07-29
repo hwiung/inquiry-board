@@ -1,5 +1,7 @@
 package com.example.board.inquiry.service;
 
+import com.example.board.exception.ForbiddenException;
+import com.example.board.exception.NotFoundException;
 import com.example.board.inquiry.domain.Inquiry;
 import com.example.board.inquiry.dto.InquiryCreateRequestDto;
 import com.example.board.inquiry.dto.InquiryResponseDto;
@@ -63,8 +65,21 @@ public class InquiryService {
     }
 
     // 문의 사항 수정
-    public void updateInquiry(Long id, InquiryUpdateRequestDto dto) {
-        Inquiry inquiry = new Inquiry(id, dto.getEmail(), dto.getTitle(), dto.getContent());
+    public void updateInquiry(Long id, InquiryUpdateRequestDto dto, Long userId) {
+        // 1. 글 조회(작성자 userId 포함)
+        Inquiry inquiry = inquiryMapper.findInquiryById(id);
+        if (inquiry == null) {
+            throw new NotFoundException("문의 글이 존재하지 않습니다.");
+        }
+
+        // 2. 인가(권한) 체크
+        if (!inquiry.getUserId().equals(userId)) {
+            throw new ForbiddenException("수정 권한이 없습니다.");
+        }
+
+        // 3. 커스텀 메소드로 값 변경 (setter 사용 지양)
+        inquiry.updateContent(dto.getTitle(), dto.getContent());
+        // 4. 실제 DB update 실행
         inquiryMapper.updateInquiry(inquiry);
     }
 

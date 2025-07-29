@@ -89,11 +89,14 @@ public class InquiryServiceTest {
     @Test
     void updateInquiryTest() {
         // given -> 여기서 inquiry 객체와 dto 객체는 서로 별개의 객체임.
-        Inquiry inquiry = new Inquiry(1L, "aiden@naver.com", "hi, i'm aiden", "nice to meet you");
+        Inquiry inquiry = new Inquiry(1L, 1L, "aiden@naver.com", "hi, i'm aiden", "nice to meet you");
         InquiryUpdateRequestDto dto = new InquiryUpdateRequestDto(1L, "hwiung@naver.com", "hello, i'm hwiung", "good evening");
 
+        // Mock 세팅: findById가 inquiry를 반환하도록
+        when(inquiryMapper.findInquiryById(1L)).thenReturn(inquiry);
+
         // when
-        inquiryService.updateInquiry(1L, dto);  // 서비스 내부에서 새로운 객체를 만듦(dto 값을 받아서 새로운 inquiry 엔터티를 생성). 하지만 테스트에서 이걸 직접 참조할 방법이 없음! 그래서 ArgumentCaptor를 사용!
+        inquiryService.updateInquiry(1L, dto, 1L);  // 서비스 내부에서 새로운 객체를 만듦(dto 값을 받아서 새로운 inquiry 엔터티를 생성). 하지만 테스트에서 이걸 직접 참조할 방법이 없음! 그래서 ArgumentCaptor를 사용!
 
         // then
         ArgumentCaptor<Inquiry> captor = ArgumentCaptor.forClass(Inquiry.class);    // mock이 updateInquiry를 호출할 때 넘긴 실제 inquiry를 캡처
@@ -102,7 +105,6 @@ public class InquiryServiceTest {
 
         // 이제 이 updateInquiry의 각 필드를 assert로 검증할 수 있음
         assertEquals(1L, updateInquiry.getId());
-        assertEquals("hwiung@naver.com", updateInquiry.getEmail());
         assertEquals("hello, i'm hwiung", updateInquiry.getTitle());
         assertEquals("good evening", updateInquiry.getContent());
 

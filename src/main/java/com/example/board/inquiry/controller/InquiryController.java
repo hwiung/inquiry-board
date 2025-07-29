@@ -4,6 +4,8 @@ import com.example.board.inquiry.dto.InquiryCreateRequestDto;
 import com.example.board.inquiry.dto.InquiryResponseDto;
 import com.example.board.inquiry.dto.InquiryUpdateRequestDto;
 import com.example.board.inquiry.service.InquiryService;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,8 +43,13 @@ public class InquiryController {
 
     // 문의 사항 수정
     @PatchMapping("/{id}")
-    public void updateInquiry(@PathVariable Long id, @RequestBody InquiryUpdateRequestDto inquiryUpdateRequestDto) {
-        inquiryService.updateInquiry(id, inquiryUpdateRequestDto);
+    public ResponseEntity<Void> updateInquiry(@PathVariable Long id, @RequestBody InquiryUpdateRequestDto inquiryUpdateRequestDto, HttpSession session) {
+        // 1. 세션에서 userId 꺼냄
+        Long userId = (Long) session.getAttribute("userId");
+        // 2. 서비스로 전달
+        inquiryService.updateInquiry(id, inquiryUpdateRequestDto, userId);
+        // 3. 응답
+        return ResponseEntity.ok().build();
     }
 
     // 문의 사항 삭제
