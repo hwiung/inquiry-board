@@ -84,7 +84,14 @@ public class InquiryService {
     }
 
     // 문의 사항 삭제
-    public void deleteInquiry(Long id) {
+    public void deleteInquiry(Long id, Long userId) {
+        Inquiry inquiry = inquiryMapper.findInquiryById(userId);
+        if (inquiry == null) {
+            throw new NotFoundException("문의 글이 존재하지 않습니다.");
+        }
+        if (!inquiry.getUserId().equals(userId)) {
+            throw new ForbiddenException("삭제 권한이 없습니다.");
+        }
 
         inquiryMapper.deleteInquiry(id);
     }

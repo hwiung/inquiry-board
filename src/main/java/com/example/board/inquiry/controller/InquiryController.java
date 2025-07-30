@@ -54,7 +54,9 @@ public class InquiryController {
 
     // 문의 사항 삭제
     @DeleteMapping("/{id}")
-    public void deleteInquiry(@PathVariable Long id) {
-        inquiryService.deleteInquiry(id);
+    public ResponseEntity<Void> deleteInquiry(@PathVariable Long id, HttpSession session) {
+        Long userId = (Long) session.getAttribute("userId");
+        inquiryService.deleteInquiry(id, userId);
+        return ResponseEntity.ok().build();
     }
 }

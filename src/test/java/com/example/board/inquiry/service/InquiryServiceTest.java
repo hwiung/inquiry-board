@@ -114,9 +114,12 @@ public class InquiryServiceTest {
     void deleteInquiryTest() {
         // given
         Long inquiryId = 1L;
+        Long userId = 1L;
+        Inquiry inquiry = new Inquiry(1L, 1L, "hwiung@naver.com", "hello", "nice to meet you");
+        when(inquiryMapper.findInquiryById(inquiryId)).thenReturn(inquiry);
 
         // when
-        inquiryService.deleteInquiry(inquiryId);
+        inquiryService.deleteInquiry(inquiryId, userId);
 
         // then
         verify(inquiryMapper, times(1)).deleteInquiry(inquiryId);
