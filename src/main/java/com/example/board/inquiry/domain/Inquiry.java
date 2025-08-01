@@ -71,8 +71,9 @@ public class Inquiry {
         return content;
     }
 
-    // 커스텀 변경 메소드 -> 서비스에서 명확하게 "이 메소드만" 사용해서 값 변경. setter 없이도 안전하게, 의도 명확하게 구현 가능.
-    public void updateContent(String title, String content) {
+    // 엔터티에 전용 변경 메소드(커스텀 변경 메소드) 사용. Setter 직접 호출을 최소화하여 객체 상태 변경을 한 곳에서 관리하기 위함.
+    // Setter 호출 대신에 전용 메소드를 사용하여 객체 자신이 스스로 자신의 상태(속성값)를 적절하고 일관성 있게 관리함.
+    public void updateInquiry(String title, String content) {
         this.title = title;
         this.content = content;
     }

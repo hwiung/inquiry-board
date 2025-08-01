@@ -78,7 +78,7 @@ public class InquiryService {
         }
 
         // 3. 커스텀 메소드로 값 변경 (setter 사용 지양)
-        inquiry.updateContent(dto.getTitle(), dto.getContent());
+        inquiry.updateInquiry(dto.getTitle(), dto.getContent());
         // 4. 실제 DB update 실행
         inquiryMapper.updateInquiry(inquiry);
     }
