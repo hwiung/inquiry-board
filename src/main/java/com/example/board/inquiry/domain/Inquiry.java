@@ -18,6 +18,12 @@ public class Inquiry {
         this.content = content;
     }
 
+    public Inquiry(Long id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
+
     public Inquiry(Long id, String email, String title, String content) {
         this.id = id;
         this.email = email;
